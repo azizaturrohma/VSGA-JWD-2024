@@ -16,6 +16,7 @@ if (isset($_POST['kategori_informatika'])) {
 
 $ketersediaan = $_POST['ketersediaan'];
 
+// Query
 $query = "INSERT INTO buku(kode, judul, jenis, kategori_bisnis, kategori_informatika, ketersediaan) VALUES('$kode', '$judul', '$jenis', $kategori_bisnis, $kategori_informatika, $ketersediaan)";
 
 mysqli_query($conn, $query);
