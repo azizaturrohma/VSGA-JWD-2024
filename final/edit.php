@@ -3,12 +3,10 @@
 $kode = $_GET['kode'];
 
 $conn = mysqli_connect("localhost", "root", "", "perpustakaan");
-$query = "SELECT * FROM book WHERE kode = '$kode'";
-// print($query);
+$query = "SELECT * FROM buku WHERE kode = '$kode'";
 
 $result = mysqli_query($conn, $query);
 $book = mysqli_fetch_array($result);
-// print_r($book);
 
 ?>
 
@@ -55,11 +53,11 @@ $book = mysqli_fetch_array($result);
     </div>
 
     <form class="row g-3 my-2" name="bookForm" onsubmit="return validateForm()" method="post" action="edit-handler.php">
-      <div class="col-12">
+      <div class="col-3">
         <label for="kode" class="form-label">Kode</label>
         <input type="text" class="form-control" id="kode" name="kode" value="<?= $book['kode'] ?>">
       </div>
-      <div class="col-12">
+      <div class="col-9">
         <label for="judul" class="form-label">Judul</label>
         <input type="text" class="form-control" id="judul" name="judul" value="<?= $book['judul'] ?>">
       </div>
@@ -67,30 +65,22 @@ $book = mysqli_fetch_array($result);
         <label for="cover" class="form-label">Cover</label>
         <input type="file" class="form-control" id="cover" value="<?= $book['cover'] ?>" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
       </div>
-      <div class="col-6">
-        <label for="penerbit" class="form-label">Penerbit</label>
-        <input type="text" class="form-control" id="penerbit" name="penerbit" value="<?= $book['penerbit'] ?>">
-      </div>
-      <div class="col-6">
-        <label for="pengarang" class="form-label">Pengarang</label>
-        <input type="text" class="form-control" id="pengarang" name="pengarang" value="<?= $book['pengarang'] ?>">
-      </div>
-      <div class="col-12">
-        <label for="jenis" class="form-label">Jenis</label>
-        <select class="form-select" id="jenis" name="jenis">
-          <option <?php if ($book['jenis'] == 'Modul') {
-                    print 'selected';
-                  } ?>>Modul</option>
-          <option <?php if ($book['jenis'] == 'Textbook') {
-                    print 'selected';
-                  } ?>>Textbook</option>
-          <option <?php if ($book['jenis'] == 'TA') {
-                    print 'selected';
-                  } ?>>TA</option>
-        </select>
-      </div>
       <div class="row mt-3">
-        <div class="col-6">
+        <div class="col-4">
+          <label for="jenis" class="form-label">Jenis</label>
+          <select class="form-select" id="jenis" name="jenis">
+            <option <?php if ($book['jenis'] == 'Modul') {
+                      print 'selected';
+                    } ?>>Modul</option>
+            <option <?php if ($book['jenis'] == 'Textbook') {
+                      print 'selected';
+                    } ?>>Textbook</option>
+            <option <?php if ($book['jenis'] == 'TA') {
+                      print 'selected';
+                    } ?>>TA</option>
+          </select>
+        </div>
+        <div class="col-4">
           <label for="kategori" class="form-label">Kategori</label>
           <div class="form-check">
             <input <?php if ($book['kategori_bisnis'] == 1) {
@@ -109,7 +99,7 @@ $book = mysqli_fetch_array($result);
             </label>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <label for="ketersediaan" class="form-label">Ketersediaan</label>
           <div class="form-check">
             <input <?php if ($book['ketersediaan'] == 1) {
@@ -124,23 +114,9 @@ $book = mysqli_fetch_array($result);
                       print 'checked';
                     } ?> class="form-check-input" type="radio" name="ketersediaan" id="ketersediaan2" value="0" value="<?= $book['ketersediaan'] ?>">
             <label class="form-check-label" for="ketersediaan2">
-              Tidak tersedia
+              Sedang dipinjam
             </label>
           </div>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-4">
-          <label for="harga" class="form-label">Harga</label>
-          <input type="number" class="form-control" id="harga" name="harga" value="<?= $book['harga'] ?>" oninput="updateTotal()">
-        </div>
-        <div class="col-4">
-          <label for="jumlah" class="form-label">Jumlah</label>
-          <input type="number" class="form-control" id="jumlah" name="jumlah" oninput="updateTotal()" value="<?= $book['jumlah'] ?>">
-        </div>
-        <div class="col-4">
-          <label for="total" class="form-label">Total</label>
-          <input type="number" class="form-control" id="total" name="total" value="<?= $book['total'] ?>">
         </div>
       </div>
       <div class="col-12">
@@ -164,22 +140,20 @@ $book = mysqli_fetch_array($result);
 
   <!-- Script -->
   <script>
-    function validateForm() {
-      // form name & input name
-      let x = document.forms["bookForm"]["pengarang"].value;
-      if (x == "") {
-        alert("Kolom wajib diisi");
-        return false;
+    function inputKodeValidation() {
+      kode = document.getElementById('kode').value;
+
+      if (kode.length > 5) {
+        alert('Kode tidak boleh lebih dari 5 karakter');
       }
     }
 
-    function updateTotal() {
-      let harga = document.getElementById("harga").value;
-      let jumlah = document.getElementById("jumlah").value;
+    function inputJudulValidation() {
+      judul = document.getElementById('judul').value;
 
-      let total = harga * jumlah;
-
-      document.getElementById("total").value = total;
+      if (judul.length > 100) {
+        alert('Panjang judul melebihi batas');
+      }
     }
   </script>
 

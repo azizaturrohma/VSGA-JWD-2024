@@ -4,8 +4,6 @@ $conn = mysqli_connect("localhost", "root", "", "perpustakaan");
 
 $kode =  $_POST['kode'];
 $judul = $_POST['judul'];
-$penerbit = $_POST['penerbit'];
-$pengarang = $_POST['pengarang'];
 $jenis = $_POST['jenis'];
 
 if (isset($_POST['kategori_bisnis'])) {
@@ -17,11 +15,8 @@ if (isset($_POST['kategori_informatika'])) {
 }
 
 $ketersediaan = $_POST['ketersediaan'];
-$harga = $_POST['harga'];
-$jumlah = $_POST['jumlah'];
-$total = $_POST['total'];
 
-$query = "INSERT INTO book(kode, judul, penerbit, pengarang, jenis, kategori_bisnis, kategori_informatika, ketersediaan, harga, jumlah, total) VALUES('$kode', '$judul', '$penerbit', '$pengarang', '$jenis', '$kategori_bisnis', '$kategori_informatika', '$ketersediaan', '$harga', '$jumlah', '$total')";
+$query = "INSERT INTO buku(kode, judul, jenis, kategori_bisnis, kategori_informatika, ketersediaan) VALUES('$kode', '$judul', '$jenis', $kategori_bisnis, $kategori_informatika, $ketersediaan)";
 
 mysqli_query($conn, $query);
 

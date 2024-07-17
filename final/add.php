@@ -40,42 +40,36 @@
             <h2>Form Tambah Buku</h2>
         </div>
 
-        <form class="row g-3 my-2" name="bookForm" onsubmit="return validateForm()" method="post" action="add-handler.php">
-            <div class="col-12">
-                <label for="kode" class="form-label">Kode</label>
-                <input type="text" class="form-control" id="kode" name="kode">
-            </div>
-            <div class="col-12">
-                <label for="judul" class="form-label">Judul</label>
-                <input type="text" class="form-control" id="judul" name="judul">
+        <form class="row g-3 my-2" name="bookForm" method="post" action="add-handler.php">
+            <div class="row mt-3">
+                <div class="col-4">
+                    <label for="kode" class="form-label">Kode</label>
+                    <input type="text" class="form-control" id="kode" name="kode" oninput="inputKodeValidation()" required>
+                </div>
+                <div class="col-8">
+                    <label for="judul" class="form-label">Judul</label>
+                    <input type="text" class="form-control" id="judul" name="judul" oninput="inputJudulValidation()" required>
+                </div>
             </div>
             <div>
                 <label for="cover" class="form-label">Cover</label>
                 <input type="file" class="form-control" id="cover" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
             </div>
-            <div class="col-6">
-                <label for="penerbit" class="form-label">Penerbit</label>
-                <input type="text" class="form-control" id="penerbit" name="penerbit">
-            </div>
-            <div class="col-6">
-                <label for="pengarang" class="form-label">Pengarang</label>
-                <input type="text" class="form-control" id="pengarang" name="pengarang">
-            </div>
-            <div class="col-12">
-                <label for="jenis" class="form-label">Jenis</label>
-                <select class="form-select" id="jenis" name="jenis">
-                    <option selected>-- Pilih --</option>
-                    <option>Modul</option>
-                    <option>Textbook</option>
-                    <option>TA</option>
-                </select>
-            </div>
             <div class="row mt-3">
-                <div class="col-6">
+                <div class="col-4">
+                    <label for="jenis" class="form-label">Jenis</label>
+                    <select class="form-select" id="jenis" name="jenis" required>
+                        <option selected>-- Pilih --</option>
+                        <option>Modul</option>
+                        <option>Textbook</option>
+                        <option>TA</option>
+                    </select>
+                </div>
+                <div class="col-4">
                     <label for="kategori" class="form-label">Kategori</label>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="1" id="kategori_bisnis" name="kategori_bisnis">
-                        <label class="form-check-label" for="kategori_bisnis">
+                        <label class=" form-check-label" for="kategori_bisnis">
                             Bisnis
                         </label>
                     </div>
@@ -86,7 +80,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <label for="ketersediaan" class="form-label">Ketersediaan</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="ketersediaan" id="ketersediaan1" value="1">
@@ -97,23 +91,9 @@
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="ketersediaan" id="ketersediaan2" value="0">
                         <label class="form-check-label" for="ketersediaan2">
-                            Tidak tersedia
+                            Sedang dipinjam
                         </label>
                     </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-4">
-                    <label for="harga" class="form-label">Harga</label>
-                    <input type="number" class="form-control" id="harga" name="harga" oninput="updateTotal()">
-                </div>
-                <div class="col-4">
-                    <label for="jumlah" class="form-label">Jumlah</label>
-                    <input type="number" class="form-control" id="jumlah" name="jumlah" oninput="updateTotal()">
-                </div>
-                <div class="col-4">
-                    <label for="total" class="form-label">Total</label>
-                    <input type="number" class="form-control" id="total" name="total">
                 </div>
             </div>
             <div class="col-12">
@@ -137,23 +117,44 @@
 
     <!-- Script -->
     <script>
-        function validateForm() {
-            // form name & input name
-            let x = document.forms["bookForm"]["pengarang"].value;
-            if (x == "") {
-                alert("Kolom wajib diisi");
-                return false;
+        function inputKodeValidation() {
+            kode = document.getElementById('kode').value;
+
+            if (kode.length > 5) {
+                alert('Kode tidak boleh lebih dari 5 karakter');
             }
         }
 
-        function updateTotal() {
-            let harga = document.getElementById("harga").value;
-            let jumlah = document.getElementById("jumlah").value;
+        function inputJudulValidation() {
+            judul = document.getElementById('judul').value;
 
-            let total = harga * jumlah;
-
-            document.getElementById("total").value = total;
+            if (judul.length > 100) {
+                alert('Panjang judul melebihi batas');
+            }
         }
+
+        // function inputKetersediaanValidation() {
+        //     ketersediaan = document.getElementsByName('ketersediaan').value;
+
+        //     if (ketersediaan == null) {
+        //         alert('Ketersediaan buku harus diisi');
+        //     }
+        // }
+
+        // function inputValidation() {
+        //     kategori_bisnis = document.getElementById('kategori_bisnis').value;
+        //     kategori_informatika = document.getElementById('kategori_informatika').value;
+
+        //     if (kategori_bisnis == null && kategori_informatika == null) {
+        //         alert('Kategori harus diisi');
+        //     }
+
+        //     jenis = document.getElementById('jenis').value;
+
+        //     if (jenis == null) {
+        //         alert('Jenis buku harus diisi');
+        //     }
+        // }
     </script>
 
     <!-- Bootstrap Script -->
