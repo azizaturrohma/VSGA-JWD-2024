@@ -8,8 +8,8 @@ function validateForm() {
 }
 
 function updateTotal() {
-    let harga = document.getElementById("hargaBuku").value;
-    let jumlah = document.getElementById("jumlahBuku").value;
+    let harga = document.getElementById("harga").value;
+    let jumlah = document.getElementById("jumlah").value;
 
     let total = harga * jumlah;
 

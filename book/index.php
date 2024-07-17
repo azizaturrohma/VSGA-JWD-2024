@@ -49,14 +49,14 @@ $books = mysqli_query($conn, "SELECT * FROM book");
           <h2>Data Buku</h2>
         </b></div>
       <div class="col-sm-4 text-end">
-        <a href="add-book.html">
+        <a href="add.php">
           <button type="button" class="btn btn-primary">Tambah Buku</button>
         </a>
       </div>
     </div>
 
     <!-- Table -->
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover mb-4">
       <thead>
         <tr>
           <th scope="col">No</th>
@@ -110,11 +110,11 @@ $books = mysqli_query($conn, "SELECT * FROM book");
               <?php
               $kategori = "";
 
-              if ($book['kategori_bisnis'] == 1) {
+              if ($book['kategori_bisnis'] == 1 && $book['kategori_informatika'] == 1) {
+                $kategori = $kategori . "Bisnis, Informatika";
+              } else if ($book['kategori_bisnis'] == 1) {
                 $kategori = $kategori . "Bisnis";
-              }
-
-              if ($book['kategori_informatika'] == 1) {
+              } else if ($book['kategori_informatika'] == 1) {
                 $kategori = $kategori . "Informatika";
               }
 
@@ -137,8 +137,8 @@ $books = mysqli_query($conn, "SELECT * FROM book");
               <?= $book['jumlah']; ?>
             </td>
             <td>
-              <a href="#" class="btn btn-warning btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Hapus</a>
+              <a href="edit.php?kode=<?= $book['kode'] ?>" class="btn btn-warning btn-sm">Edit</a>
+              <a href="hapus.php?kode=<?= $book['kode'] ?>" class="btn btn-danger btn-sm">Hapus</a>
             </td>
           </tr>
         <?php
@@ -149,7 +149,7 @@ $books = mysqli_query($conn, "SELECT * FROM book");
   </div>
 
   <!-- Footer -->
-  <footer class="mt-auto d-flex flex-wrap justify-content-between align-items-center py-3 my-4 mx-5 border-top">
+  <footer class="mt-auto d-flex flex-wrap justify-content-between align-items-center py-3 mb-2 mx-5 border-top">
     <p class="col-md-4 mb-0 text-body-secondary">© 2024 Azizatur Rohma. All rights reserved.</p>
 
     <ul class="nav col-md-4 justify-content-end">
