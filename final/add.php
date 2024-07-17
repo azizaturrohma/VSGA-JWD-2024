@@ -40,7 +40,7 @@
             <h2>Form Tambah Buku</h2>
         </div>
 
-        <form class="row g-3 my-2" name="bookForm" method="post" action="add-handler.php">
+        <form class="row g-3 my-2" name="bookForm" method="post" action="add-handler.php" enctype="multipart/form-data">
             <div class="row mt-3">
                 <div class="col-4">
                     <label for="kode" class="form-label">Kode</label>
@@ -53,7 +53,7 @@
             </div>
             <div>
                 <label for="cover" class="form-label">Cover</label>
-                <input type="file" class="form-control" id="cover" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                <input type="file" class="form-control" id="cover" name="cover">
             </div>
             <div class="row mt-3">
                 <div class="col-4">

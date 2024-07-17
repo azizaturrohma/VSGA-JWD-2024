@@ -52,18 +52,18 @@ $book = mysqli_fetch_array($result);
       <h2>Form Edit Buku</h2>
     </div>
 
-    <form class="row g-3 my-2" name="bookForm" onsubmit="return validateForm()" method="post" action="edit-handler.php">
+    <form class="row g-3 my-2" name="bookForm" method="post" action="edit-handler.php" enctype="multipart/form-data">
       <div class="col-3">
         <label for="kode" class="form-label">Kode</label>
-        <input type="text" class="form-control" id="kode" name="kode" value="<?= $book['kode'] ?>">
+        <input type="text" class="form-control" id="kode" name="kode" value="<?= $book['kode'] ?>" oninput="inputKodeValidation()" required>
       </div>
       <div class="col-9">
         <label for="judul" class="form-label">Judul</label>
-        <input type="text" class="form-control" id="judul" name="judul" value="<?= $book['judul'] ?>">
+        <input type="text" class="form-control" id="judul" name="judul" value="<?= $book['judul'] ?>" oninput="inputJudulValidation()" required>
       </div>
       <div>
         <label for="cover" class="form-label">Cover</label>
-        <input type="file" class="form-control" id="cover" value="<?= $book['cover'] ?>" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+        <input type="file" class="form-control" id="cover" name="cover" value="<?= $book['cover'] ?>">
       </div>
       <div class="row mt-3">
         <div class="col-4">
